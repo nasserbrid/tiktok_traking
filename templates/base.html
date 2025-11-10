@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TikTok Tracking</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-gradient-dark text-light">
+    <!-- Barre de navigation -->
+    <nav
+      class="navbar navbar-dark navbar-expand-lg bg-transparent px-4 py-3"
+      style="backdrop-filter: blur(12px);"
+    >
+      <div class="container-fluid">
+         <!-- Logo TikTok Tracking -->
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+          <i class="fa-solid fa-mobile-screen-button fa-lg me-2 text-primary"></i>
+          <span class="fw-bold">TikTok Tracking</span>
+        </a>
+
+        <div class="d-flex">
+          {% if user.is_authenticated %}
+          <span class="me-3">
+            <i class="fa-solid fa-user"></i> {{ user.username }}
+          </span>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="btn btn-outline-light btn-sm" type="submit">
+              <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
+            </button>
+          </form>
+          {% else %}
+          <a href="{% url 'login' %}" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-right-to-bracket"></i> Connexion
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
