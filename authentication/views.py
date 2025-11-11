@@ -41,13 +41,3 @@ def signup_page(request):
     return render(request, "authentication/signup.html", context={"form": form})
 
 
-from django.contrib.auth.decorators import login_required
-
-
-@login_required
-def home_page(request):
-    """
-    Vue pour la page d'accueil de l'utilisateur connecté.
-    L'accès est réservé aux utilisateurs authentifiés.
-    """
-    return render(request, "authentication/home.html")

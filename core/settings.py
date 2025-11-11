@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication',
+    'core',
     'tracking',
     'notifications',
     'allauth',
@@ -182,11 +183,11 @@ AUTHENTICATION_BACKENDS = (
 
 AUTH_USER_MODEL = 'authentication.User'
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = '/'
 
-LOGIN_URL = 'login'
+LOGIN_URL = '/auth/login/' 
 
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = '/auth/login/' 
 
 SITE_ID = 1  
 

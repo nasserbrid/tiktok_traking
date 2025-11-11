@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 500px;">
+    <!-- Gros + et titre -->
+    <div class="text-center mb-4">
+        <span style="font-size: 4rem; font-weight: bold; color: #9b8aff;">+</span>
+        <h2 class="mt-2">Ajouter un compte</h2>
+        <p class="text-muted">Entre le nom d'utilisateur TikTok que tu veux suivre.</p>
+    </div>
+
+    <!-- Formulaire d'ajout de compte -->
+    <form method="post" class="p-4 glass-card">
+        {% csrf_token %}
+        
+        <!-- Nom d'utilisateur -->
+        <div class="mb-3">
+            <label for="id_username" class="form-label">Nom d'utilisateur</label>
+            <div class="input-group">
+                <span class="input-group-text">@</span>
+                {{ form.username }}
+            </div>
+            <small class="form-text text-muted">Entre le nom sans le @</small>
+        </div>
+
+        <!-- Boutons Annuler / Ajouter -->
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'home' %}" class="btn btn-secondary">Annuler</a>
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

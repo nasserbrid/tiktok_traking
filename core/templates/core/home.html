@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Bienvenue, {{ user.username }} !</h2>
+    <p>Voici vos comptes TikTok suivis :</p>
+
+    <div class="row">
+        {% for compte in comptes %}
+        <div class="col-md-4 mb-3">
+            <div class="card text-light" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.2);">
+                <div class="card-body">
+                    <h5 class="card-title">{{ compte.username }}</h5>
+                    <p class="card-text">Followers : {{ compte.nb_followers }}</p>
+                    
+                    <!-- Badge pour le statut -->
+                    {% if compte.statut == 'En ligne' %}
+                        <span class="badge bg-success">{{ compte.statut }}</span>
+                    {% elif compte.statut == 'Actif' %}
+                        <span class="badge bg-primary">{{ compte.statut }}</span>
+                    {% else %}
+                        <span class="badge bg-secondary">{{ compte.statut }}</span>
+                    {% endif %}
+                    
+                    <a href="{% url 'compte_detail' compte.id %}" class="btn btn-outline-light btn-sm mt-2">
+                        Voir détails
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Aucun compte suivi pour le moment.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Grand + flottant pour ajouter un compte -->
+    <a href="{% url 'compte_add' %}" class="btn btn-success rounded-circle"
+       style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; font-size: 30px; text-align: center; line-height: 60px;">
+       +
+    </a>
+</div>
+{% endblock %}

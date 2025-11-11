@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center">
+  <h2 class="mb-4 fw-bold">Mes Comptes TikTok Suivis</h2>
+
+  {% if comptes %}
+  <div class="row justify-content-center">
+    {% for compte in comptes %}
+    <div class="col-md-4 mb-3">
+      <div class="card bg-dark text-light border-light shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">@{{ compte.username }}</h5>
+          <p class="card-text">
+            <i class="fa-solid fa-users"></i> {{ compte.nb_followers }} abonnés<br />
+            <i class="fa-solid fa-calendar"></i> Créé le {{ compte.date_creation|date:"d/m/Y" }}
+          </p>
+          <a href="{% url 'compte_detail' compte.id %}" class="btn btn-primary w-100">
+            <i class="fa-solid fa-eye"></i> Voir les lives
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-muted">Aucun compte TikTok suivi pour le moment.</p>
+  {% endif %}
+</div>
+{% endblock %}
