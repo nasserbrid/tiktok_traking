@@ -21,6 +21,11 @@
                 {{ form.username }}
             </div>
             <small class="form-text text-muted">Entre le nom sans le @</small>
+
+            <!--Affichage du message d'erreur si le compte existe déjà -->
+    <div class="text-danger small mt-1">
+        {{ form.username.errors }}
+    </div>
         </div>
 
         <!-- Boutons Annuler / Ajouter -->

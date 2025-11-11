@@ -37,13 +37,15 @@ def liste_lives(request):
 @login_required
 def ajouter_compte(request):
     if request.method == 'POST':
-        form = CompteTiktokForm(request.POST)
+        form = CompteTiktokForm(request.POST, user=request.user)  # ✅ ajout du paramètre user
         if form.is_valid():
             compte = form.save(commit=False)
             compte.user = request.user
+            compte.url = f"https://www.tiktok.com/@{compte.username}"  # (optionnel) auto-générer l’URL
             compte.save()
-            return redirect('home')  # Redirige vers le dashboard
+            return redirect('home')
     else:
-        form = CompteTiktokForm()
+        form = CompteTiktokForm(user=request.user)  # ✅ idem ici
 
     return render(request, 'tracking/compte_add.html', {'form': form})
+

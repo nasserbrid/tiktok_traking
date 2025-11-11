@@ -7,6 +7,9 @@ class CompteTiktok(models.Model):
     url = models.URLField()
     date_creation = models.DateTimeField(auto_now_add=True)
     nb_followers = models.PositiveIntegerField(default=0)
+    
+    class Meta:
+        unique_together = ('user', 'username')
 
     def __str__(self):
         return self.username
