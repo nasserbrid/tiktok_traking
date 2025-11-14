@@ -25,6 +25,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('auth/', include('authentication.urls')),
     path('tracking/', include('tracking.urls')),
+    path('notifications/', include('notifications.urls')),
     path('', views.home_page, name='home'),
    
 

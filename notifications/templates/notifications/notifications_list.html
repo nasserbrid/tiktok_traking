@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Notifications</h2>
+
+<div>
+    <ul id="notifications_list">
+        {% for notif in notifications %}
+        <li {% if not notif.is_read %}style="font-weight:bold"{% endif %}>
+            {{ notif.message }} - {{ notif.date_created|timesince }} 
+        </li>
+        {% empty %}
+        <li>Aucune notification pour le moment.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script>
+const socket = new WebSocket("ws://" + window.location.host + "/ws/lives/");
+
+socket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    if(data.type === "live_notification") {
+        const ul = document.getElementById("notifications_list");
+        if(ul) {
+            const li = document.createElement("li");
+            li.textContent = `Live en cours : ${data.compte} - ${data.titre}`;
+            li.style.fontWeight = "bold";
+            ul.prepend(li);
+        }
+    }
+};
+</script>
+{% endblock %}

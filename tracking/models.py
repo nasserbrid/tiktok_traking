@@ -1,5 +1,6 @@
 from django.db import models
 from authentication.models import User
+from notifications.utils import envoyer_notification_live
 
 class CompteTiktok(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comptes_tiktok")
@@ -41,4 +42,17 @@ class Live(models.Model):
 
     def __str__(self):
         return f"{self.titre} ({self.compte.username})"
+    
+    
+    def save(self, *args, **kwargs):
+        is_new_live = self.pk is None
+        previous_statut = None
+        if not is_new_live:
+            previous = Live.objects.get(pk=self.pk)
+            previous_statut = previous.statut
+
+        super().save(*args, **kwargs)
+
+        if self.statut == 'en_cours' and (is_new_live or previous_statut != 'en_cours'):
+            envoyer_notification_live(self)
 
