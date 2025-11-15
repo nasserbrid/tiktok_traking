@@ -4,6 +4,124 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}TikTok Tracking{% endblock %}</title>
+
+    <!-- Favicon (optionnel) -->
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      rel="stylesheet"
+    />
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    
+    {% block extra_css %}{% endblock %}
+  </head>
+
+  <body class="bg-gradient-dark text-light">
+    <!-- Barre de navigation -->
+    <nav
+      class="navbar navbar-dark navbar-expand-lg bg-transparent px-4 py-3"
+      style="backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1);"
+    >
+      <div class="container-fluid">
+        <!-- Logo TikTok Tracking -->
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+          <i class="fa-brands fa-tiktok fa-lg me-2" style="color: #ff0050;"></i>
+          <span class="fw-bold">TikTok Tracking</span>
+        </a>
+
+        <!-- Menu burger pour mobile -->
+        <button 
+          class="navbar-toggler" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            {% if user.is_authenticated %}
+              <li class="nav-item me-3">
+                <span class="text-light">
+                  <i class="fa-solid fa-user"></i> {{ user.username }}
+                </span>
+              </li>
+              <li class="nav-item">
+                <form method="post" action="{% url 'logout' %}" class="d-inline">
+                  {% csrf_token %}
+                  <button class="btn btn-outline-light btn-sm" type="submit">
+                    <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
+                  </button>
+                </form>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a href="{% url 'login' %}" class="btn btn-primary btn-sm">
+                  <i class="fa-solid fa-right-to-bracket"></i> Connexion
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Messages Flash -->
+    {% if messages %}
+    <div class="container mt-3">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {% if message.tags == 'success' %}
+          <i class="fas fa-check-circle"></i>
+        {% elif message.tags == 'error' or message.tags == 'danger' %}
+          <i class="fas fa-exclamation-circle"></i>
+        {% elif message.tags == 'warning' %}
+          <i class="fas fa-exclamation-triangle"></i>
+        {% else %}
+          <i class="fas fa-info-circle"></i>
+        {% endif %}
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Contenu principal -->
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer-->
+    <footer class="text-center text-muted py-4 mt-5">
+      <small>© 2025 TikTok Tracking</small>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>
+{% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TikTok Tracking</title>
 
     <!-- Styles -->
@@ -59,4 +177,4 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
-</html>
+</html> {% endcomment %}

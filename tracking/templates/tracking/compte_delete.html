@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 600px;">
+    <!-- Icône de warning et titre -->
+    <div class="text-center mb-4">
+        <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #ff6b6b;"></i>
+        <h2 class="mt-3">Supprimer le compte</h2>
+        <p class="text-muted">Cette action est irréversible !</p>
+    </div>
+
+    <!-- Carte de confirmation -->
+    <div class="glass-card p-4">
+        <div class="alert alert-warning" role="alert">
+            <i class="fas fa-info-circle"></i> 
+            Tu es sur le point de supprimer le compte <strong>@{{ compte.username }}</strong>
+        </div>
+
+        <div class="mb-3">
+            <h5>Conséquences :</h5>
+            <ul class="text-muted">
+                <li>Le compte sera retiré de ta liste de suivi</li>
+                <li>L'historique des lives sera supprimé</li>
+                <li>Tu ne recevras plus de notifications pour ce compte</li>
+            </ul>
+        </div>
+
+        <!-- Formulaire de confirmation -->
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'compte_detail' compte.id %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Annuler
+                </a>
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Confirmer la suppression
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

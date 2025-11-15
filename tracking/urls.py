@@ -6,4 +6,5 @@ urlpatterns = [
     path('comptes/ajouter/', views.ajouter_compte, name='compte_add'),
     path('compte/<int:compte_id>/', views.detail_compte, name='compte_detail'),
     path('lives/', views.liste_lives, name='lives_list'),
+    path('compte/delete/<int:compte_id>/', views.supprimer_compte, name='compte_delete'),
 ]
