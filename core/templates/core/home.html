@@ -1,135 +1,168 @@
-{% extends "base.html" %}
-{% load static %}
-
-{% block title %}Dashboard - TikTok Tracking{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block title %}Dashboard - TikTok
+Tracking{% endblock %} {% block content %}
 <div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-4 dashboard-header">
-        <div>
-            <h2>Bienvenue, {{ user.username }} !</h2>
-            <p class="text-muted">Voici vos comptes TikTok suivis</p>
-        </div>
-        <a href="{% url 'compte_add' %}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Ajouter un compte
-        </a>
-    </div>
+  <!-- Conteneur pour les notifications live -->
+  <div id="live-notifications-container"></div>
 
-    <div class="row">
-        {% for compte in comptes %}
-        <div class="col-md-4 col-sm-6 mb-3">
-            <div class="card text-light position-relative" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.2);">
-                <!-- Badge EN LIVE en haut à droite -->
-                {% if compte.en_live %}
-                <span class="badge bg-danger position-absolute top-0 end-0 m-2 pulse">
-                    <i class="fas fa-circle" style="font-size: 0.5rem;"></i> EN LIVE
-                </span>
-                {% endif %}
-                
-                <div class="card-body">
-                    <h5 class="card-title">@{{ compte.username }}</h5>
-                    <p class="card-text mb-2">
-                        <i class="fa-solid fa-users"></i> {{ compte.nb_followers }} followers
-                    </p>
-                    
-                    <!-- Badge pour le statut dynamique -->
-                    {% if compte.statut_dynamique == 'En ligne' %}
-                        <span class="badge bg-success">
-                            <i class="fas fa-circle" style="font-size: 0.5rem;"></i> En ligne
-                        </span>
-                    {% elif compte.statut_dynamique == 'Actif' %}
-                        <span class="badge bg-secondary">
-                            <i class="fas fa-circle" style="font-size: 0.5rem;"></i> Actif
-                        </span>
-                    {% else %}
-                        <span class="badge bg-dark">
-                            <i class="fas fa-circle" style="font-size: 0.5rem;"></i> Hors ligne
-                        </span>
-                    {% endif %}
-                    
-                    <!-- Boutons d'action -->
-                    <div class="d-flex gap-2 mt-3">
-                        <a href="{% url 'compte_detail' compte.id %}" class="btn btn-outline-light btn-sm flex-grow-1">
-                            <i class="fa-solid fa-eye"></i> Voir détails
-                        </a>
-                        <a href="{% url 'compte_delete' compte.id %}" class="btn btn-outline-danger btn-sm" title="Supprimer">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <div class="col-12">
-            <div class="empty-state text-center py-5">
-                <i class="fas fa-inbox fa-2x"></i>
-                <p class="text-muted mt-2">Aucun compte TikTok suivi pour le moment.</p>
-                <a href="{% url 'compte_add' %}" class="btn btn-primary mt-2">
-                    <i class="fas fa-plus"></i> Ajouter ton premier compte
-                </a>
-            </div>
-        </div>
-        {% endfor %}
+  <div
+    class="d-flex justify-content-between align-items-center mb-4 dashboard-header"
+  >
+    <div>
+      <h2>Bienvenue, {{ user.username }} !</h2>
+      <p class="text-muted">Voici vos comptes TikTok suivis</p>
     </div>
-
-    <!-- Bouton flottant pour ajouter un compte -->
-    <a href="{% url 'compte_add' %}" class="btn btn-success rounded-circle btn-floating" title="Ajouter un compte">
-       +
+    <a href="{% url 'compte_add' %}" class="btn btn-primary">
+      <i class="fas fa-plus"></i> Ajouter un compte
     </a>
+  </div>
+
+  <div class="row">
+    {% for compte in comptes %}
+    <div class="col-md-4 col-sm-6 mb-3">
+      <div
+        class="card text-light position-relative"
+        style="
+          background-color: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        "
+      >
+        <!-- Badge EN LIVE en haut à droite -->
+        {% if compte.en_live %}
+        <span class="badge bg-danger position-absolute top-0 end-0 m-2 pulse">
+          <i class="fas fa-circle" style="font-size: 0.5rem"></i> EN LIVE
+        </span>
+        {% endif %}
+
+        <div class="card-body">
+          <h5 class="card-title">@{{ compte.username }}</h5>
+          <p class="card-text mb-2">
+            <i class="fa-solid fa-users"></i> {{ compte.nb_followers }}
+            followers
+          </p>
+
+          <!-- Badge pour le statut dynamique -->
+          {% if compte.statut_dynamique == 'En ligne' %}
+          <span class="badge bg-success">
+            <i class="fas fa-circle" style="font-size: 0.5rem"></i> En ligne
+          </span>
+          {% elif compte.statut_dynamique == 'Actif' %}
+          <span class="badge bg-secondary">
+            <i class="fas fa-circle" style="font-size: 0.5rem"></i> Actif
+          </span>
+          {% else %}
+          <span class="badge bg-dark">
+            <i class="fas fa-circle" style="font-size: 0.5rem"></i> Hors ligne
+          </span>
+          {% endif %}
+
+          <!-- Boutons d'action -->
+          <div class="d-flex gap-2 mt-3">
+            <a
+              href="{% url 'compte_detail' compte.id %}"
+              class="btn btn-outline-light btn-sm flex-grow-1"
+            >
+              <i class="fa-solid fa-eye"></i> Voir détails
+            </a>
+            <a
+              href="{% url 'compte_delete' compte.id %}"
+              class="btn btn-outline-danger btn-sm"
+              title="Supprimer"
+            >
+              <i class="fas fa-trash"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+      <div class="empty-state text-center py-5">
+        <i class="fas fa-inbox fa-2x"></i>
+        <p class="text-muted mt-2">Aucun compte TikTok suivi pour le moment.</p>
+        <a href="{% url 'compte_add' %}" class="btn btn-primary mt-2">
+          <i class="fas fa-plus"></i> Ajouter ton premier compte
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Bouton flottant pour ajouter un compte -->
+  <a
+    href="{% url 'compte_add' %}"
+    class="btn btn-success rounded-circle btn-floating"
+    title="Ajouter un compte"
+  >
+    +
+  </a>
 </div>
-{% endblock %}
-
-
-{% block extra_js %}
+{% endblock %} {% block extra_js %}
 <script src="{% static 'js/home.js' %}"></script>
 <script>
-    // Rafraîchit la page toutes les 30 secondes pour mettre à jour les statuts
-    setInterval(function() {
-        location.reload();
-    }, 30000); // 30 secondes
+  // Rafraîchit la page toutes les 30 secondes pour mettre à jour les statuts
+  setInterval(function () {
+    location.reload();
+  }, 30000); // 30 secondes
 </script>
-{% endblock %}
-{% comment %} {% extends "base.html" %}
-
-{% block title %}Dashboard{% endblock %}
-
-{% block content %}
+{% endblock %} {% comment %} {% extends "base.html" %} {% block title
+%}Dashboard{% endblock %} {% block content %}
 <div class="container mt-5">
-    <h2>Bienvenue, {{ user.username }} !</h2>
-    <p>Voici vos comptes TikTok suivis :</p>
+  <h2>Bienvenue, {{ user.username }} !</h2>
+  <p>Voici vos comptes TikTok suivis :</p>
 
-    <div class="row">
-        {% for compte in comptes %}
-        <div class="col-md-4 mb-3">
-            <div class="card text-light" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.2);">
-                <div class="card-body">
-                    <h5 class="card-title">{{ compte.username }}</h5>
-                    <p class="card-text">Followers : {{ compte.nb_followers }}</p>
-                    
-                    <!-- Badge pour le statut -->
-                    {% if compte.statut == 'En ligne' %}
-                        <span class="badge bg-success">{{ compte.statut }}</span>
-                    {% elif compte.statut == 'Actif' %}
-                        <span class="badge bg-primary">{{ compte.statut }}</span>
-                    {% else %}
-                        <span class="badge bg-secondary">{{ compte.statut }}</span>
-                    {% endif %}
-                    
-                    <a href="{% url 'compte_detail' compte.id %}" class="btn btn-outline-light btn-sm mt-2">
-                        Voir détails
-                    </a>
-                </div>
-            </div>
+  <div class="row">
+    {% for compte in comptes %}
+    <div class="col-md-4 mb-3">
+      <div
+        class="card text-light"
+        style="
+          background-color: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        "
+      >
+        <div class="card-body">
+          <h5 class="card-title">{{ compte.username }}</h5>
+          <p class="card-text">Followers : {{ compte.nb_followers }}</p>
+
+          <!-- Badge pour le statut -->
+          {% if compte.statut == 'En ligne' %}
+          <span class="badge bg-success">{{ compte.statut }}</span>
+          {% elif compte.statut == 'Actif' %}
+          <span class="badge bg-primary">{{ compte.statut }}</span>
+          {% else %}
+          <span class="badge bg-secondary">{{ compte.statut }}</span>
+          {% endif %}
+
+          <a
+            href="{% url 'compte_detail' compte.id %}"
+            class="btn btn-outline-light btn-sm mt-2"
+          >
+            Voir détails
+          </a>
         </div>
-        {% empty %}
-        <p>Aucun compte suivi pour le moment.</p>
-        {% endfor %}
+      </div>
     </div>
+    {% empty %}
+    <p>Aucun compte suivi pour le moment.</p>
+    {% endfor %}
+  </div>
 
-    <!-- Grand + flottant pour ajouter un compte -->
-    <a href="{% url 'compte_add' %}" class="btn btn-success rounded-circle"
-       style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; font-size: 30px; text-align: center; line-height: 60px;">
-       +
-    </a>
+  <!-- Grand + flottant pour ajouter un compte -->
+  <a
+    href="{% url 'compte_add' %}"
+    class="btn btn-success rounded-circle"
+    style="
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      font-size: 30px;
+      text-align: center;
+      line-height: 60px;
+    "
+  >
+    +
+  </a>
 </div>
 {% endblock %} {% endcomment %}

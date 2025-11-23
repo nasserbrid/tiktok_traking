@@ -54,4 +54,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     console.log('🚀 TikTok Tracking App loaded');
+
+    const container = document.getElementById("live-notifications-container");
+    const socket = new WebSocket("ws://" + window.location.host + "/ws/lives/");
+
+    socket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        if (data.type === "live_notification") {
+            const popup = document.createElement("div");
+            popup.classList.add("live-popup");
+            popup.textContent = `🔴 ${data.compte} est en live ! Titre : ${data.titre}`;
+            container.appendChild(popup);
+
+            // Supprime la popup après 5 secondes
+            setTimeout(() => popup.remove(), 5000);
+        }
+    };
 });

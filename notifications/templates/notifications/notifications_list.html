@@ -14,7 +14,7 @@
         {% endfor %}
     </ul>
 </div>
-<script>
+{% comment %} <script>
 const ws = new WebSocket(`ws://${window.location.host}/ws/lives/`);
 
 ws.onmessage = function(event) {
@@ -25,9 +25,9 @@ ws.onmessage = function(event) {
     }
 };
 
-</script>
+</script> {% endcomment %}
 
-{% comment %} <script>
+<script>
 const socket = new WebSocket("ws://" + window.location.host + "/ws/lives/");
 
 socket.onmessage = function(e) {
@@ -42,5 +42,5 @@ socket.onmessage = function(e) {
         }
     }
 };
-</script> {% endcomment %}
+</script> 
 {% endblock %}

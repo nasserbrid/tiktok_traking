@@ -165,6 +165,173 @@ a:hover {
   animation: fadeIn 0.5s ease-out;
 }
 
+/* ======== FOND ======== */
+.bg-gradient-dark {
+  background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+}
+
+/* ======== FORMULAIRES (Glass effect) ======== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+  color: white;
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(109, 93, 252, 0.5);
+  color: white;
+}
+
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Fix pour les inputs autofill */
+.glass-input:-webkit-autofill,
+.glass-input:-webkit-autofill:hover,
+.glass-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.15) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ======== LABELS ======== */
+.form-label {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+/* ======== BOUTONS ======== */
+.btn-gradient {
+  background: linear-gradient(90deg, #6d5dfc, #8b46ff);
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(90deg, #5a48e0, #7b39e8);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(109, 93, 252, 0.4);
+}
+
+.btn-outline-light {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: white;
+}
+
+/* ======== LIENS ======== */
+a {
+  color: #9b8aff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #b4aaff;
+}
+
+/* ======== ALERTES ======== */
+.alert {
+  border-radius: 10px;
+  border: none;
+  backdrop-filter: blur(10px);
+}
+
+.alert-danger {
+  background: rgba(220, 53, 69, 0.2);
+  color: #ff6b6b;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.alert-success {
+  background: rgba(40, 167, 69, 0.2);
+  color: #51cf66;
+  border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.alert-info {
+  background: rgba(23, 162, 184, 0.2);
+  color: #4dabf7;
+  border: 1px solid rgba(23, 162, 184, 0.3);
+}
+
+/* ======== NAVBAR ======== */
+.navbar {
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
+}
+
+/* ======== TEXTE ======== */
+.text-muted {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.text-light-50 {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ======== ICÔNES ======== */
+.text-primary {
+  color: #8b46ff !important;
+}
+
+.text-success {
+  color: #51cf66 !important;
+}
+
+/* ======== ANIMATIONS ======== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.glass-card {
+  animation: fadeIn 0.5s ease-out;
+}
+
 /* ======== RESPONSIVE ======== */
 @media (max-width: 576px) {
   .glass-card {
@@ -867,4 +1034,739 @@ form p .errorlist li {
   .bg-gradient-dark {
     background: radial-gradient(circle at top left, #000000, #1a1a2e, #16213e);
   }
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 576px) {
+  .glass-card {
+    width: 90% !important;
+    padding: 2rem !important;
+  }
+  
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+}
+
+/* ======== SCROLLBAR PERSONNALISÉE ======== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 70, 255, 0.5);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 70, 255, 0.7);
+}
+
+/* ======== MESSAGES D'ERREUR DE FORMULAIRE ======== */
+.text-danger {
+  color: #ff6b6b !important;
+  font-size: 0.875rem;
+}
+
+.form-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+}
+
+/* ======== HELPER TEXT ======== */
+small.form-text {
+  display: block;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+}
+
+/* ======== LOADING SPINNER (optionnel) ======== */
+.spinner-border {
+  border-color: rgba(255, 255, 255, 0.3);
+  border-right-color: #8b46ff;
+}
+
+/* ======== STYLE POUR form.as_p (Django) ======== */
+/* Cibler tous les paragraphes générés par Django */
+form p {
+  margin-bottom: 1rem;
+}
+
+/* Labels générés par Django */
+form p label {
+  display: block;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+/* Inputs générés par Django */
+form p input[type="text"],
+form p input[type="email"],
+form p input[type="password"],
+form p input[type="number"],
+form p textarea,
+form p select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Focus sur les inputs Django */
+form p input:focus,
+form p textarea:focus,
+form p select:focus {
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(109, 93, 252, 0.5);
+  color: white;
+}
+
+/* Placeholder */
+form p input::placeholder,
+form p textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Autofill fix pour les formulaires Django */
+form p input:-webkit-autofill,
+form p input:-webkit-autofill:hover,
+form p input:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.15) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Messages d'aide Django (helptext) */
+form p .helptext {
+  display: block;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+}
+
+/* Erreurs de formulaire Django */
+form p .errorlist {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+form p .errorlist li {
+  color: #ff6b6b;
+  font-size: 0.875rem;
+  background: rgba(220, 53, 69, 0.1);
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-top: 0.25rem;
+}
+
+/* ======== FOND ======== */
+.bg-gradient-dark {
+  background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+}
+
+/* ======== FORMULAIRES (Glass effect) ======== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+  color: white;
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(109, 93, 252, 0.5);
+  color: white;
+}
+
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Fix pour les inputs autofill */
+.glass-input:-webkit-autofill,
+.glass-input:-webkit-autofill:hover,
+.glass-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.15) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ======== LABELS ======== */
+.form-label {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+/* ======== BOUTONS ======== */
+.btn-gradient {
+  background: linear-gradient(90deg, #6d5dfc, #8b46ff);
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(90deg, #5a48e0, #7b39e8);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(109, 93, 252, 0.4);
+}
+
+.btn-outline-light {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: white;
+}
+
+.btn-outline-danger {
+  border: 1px solid rgba(220, 53, 69, 0.5);
+  color: #ff6b6b;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+  background: rgba(220, 53, 69, 0.2);
+  border-color: rgba(220, 53, 69, 0.7);
+  color: #ff6b6b;
+}
+
+/* ======== LIENS ======== */
+a {
+  color: #9b8aff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #b4aaff;
+}
+
+/* ======== ALERTES ======== */
+.alert {
+  border-radius: 10px;
+  border: none;
+  backdrop-filter: blur(10px);
+}
+
+.alert-danger {
+  background: rgba(220, 53, 69, 0.2);
+  color: #ff6b6b;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.alert-success {
+  background: rgba(40, 167, 69, 0.2);
+  color: #51cf66;
+  border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.alert-info {
+  background: rgba(23, 162, 184, 0.2);
+  color: #4dabf7;
+  border: 1px solid rgba(23, 162, 184, 0.3);
+}
+
+/* ======== NAVBAR ======== */
+.navbar {
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
+}
+
+/* ======== TEXTE ======== */
+.text-muted {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.text-light-50 {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ======== ICÔNES ======== */
+.text-primary {
+  color: #8b46ff !important;
+}
+
+.text-success {
+  color: #51cf66 !important;
+}
+
+/* ======== ANIMATIONS ======== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.glass-card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ======== CARTES DE COMPTES (HOME) ======== */
+.card {
+  transition: all 0.3s ease;
+  animation: slideInUp 0.5s ease-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* Badge EN LIVE */
+.badge {
+  padding: 0.5rem 0.75rem;
+  font-weight: 500;
+  font-size: 0.75rem;
+  border-radius: 20px;
+}
+
+.badge.bg-danger {
+  background: linear-gradient(90deg, #ff6b6b, #ff5252) !important;
+}
+
+.badge.bg-success {
+  background: linear-gradient(90deg, #51cf66, #37b24d) !important;
+}
+
+.badge.bg-secondary {
+  background: rgba(108, 117, 125, 0.5) !important;
+}
+
+.badge.bg-dark {
+  background: rgba(52, 58, 64, 0.7) !important;
+}
+
+/* ======== BOUTON FLOTTANT + ======== */
+.btn-floating {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  text-align: center;
+  line-height: 60px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.btn-floating:hover {
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: 0 8px 20px rgba(40, 167, 69, 0.5);
+}
+
+/* ======== ÉTAT VIDE (Empty State) ======== */
+.empty-state {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.empty-state i {
+  font-size: 5rem;
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+}
+
+.empty-state p {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1.5rem;
+}
+
+/* ======== HEADER DASHBOARD ======== */
+.dashboard-header {
+  margin-bottom: 2rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.dashboard-header h2 {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* ======== SCROLLBAR PERSONNALISÉE ======== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 70, 255, 0.5);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 70, 255, 0.7);
+}
+
+/* ======== MESSAGES D'ERREUR DE FORMULAIRE ======== */
+.text-danger {
+  color: #ff6b6b !important;
+  font-size: 0.875rem;
+}
+
+.form-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+}
+
+/* ======== HELPER TEXT ======== */
+small.form-text {
+  display: block;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+}
+
+/* ======== LOADING SPINNER ======== */
+.spinner-border {
+  border-color: rgba(255, 255, 255, 0.3);
+  border-right-color: #8b46ff;
+}
+
+/* ======== STYLE POUR form.as_p (Django) ======== */
+form p {
+  margin-bottom: 1rem;
+}
+
+form p label {
+  display: block;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+form p input[type="text"],
+form p input[type="email"],
+form p input[type="password"],
+form p input[type="number"],
+form p textarea,
+form p select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+form p input:focus,
+form p textarea:focus,
+form p select:focus {
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(109, 93, 252, 0.5);
+  color: white;
+}
+
+form p input::placeholder,
+form p textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+form p input:-webkit-autofill,
+form p input:-webkit-autofill:hover,
+form p input:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.15) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+form p .helptext {
+  display: block;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+}
+
+form p .errorlist {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+form p .errorlist li {
+  color: #ff6b6b;
+  font-size: 0.875rem;
+  background: rgba(220, 53, 69, 0.1);
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-top: 0.25rem;
+}
+
+/* ======== RESPONSIVE DESIGN ======== */
+
+/* Tablettes (768px - 991px) */
+@media (max-width: 991px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+  
+  .dashboard-header h2 {
+    font-size: 1.75rem;
+  }
+  
+  .card-body {
+    padding: 1.25rem;
+  }
+}
+
+/* Mobiles et petites tablettes (576px - 767px) */
+@media (max-width: 767px) {
+  .glass-card {
+    width: 90% !important;
+    padding: 1.5rem !important;
+  }
+  
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+  
+  .dashboard-header {
+    text-align: center;
+  }
+  
+  .dashboard-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .dashboard-header .btn {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  /* Cartes en pleine largeur sur mobile */
+  .col-md-4 {
+    padding: 0 0.5rem;
+  }
+  
+  .card-body h5 {
+    font-size: 1.1rem;
+  }
+  
+  .btn-floating {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    line-height: 50px;
+  }
+  
+  .empty-state i {
+    font-size: 4rem;
+  }
+  
+  .empty-state {
+    padding: 3rem 1rem;
+  }
+}
+
+/* Très petits mobiles (moins de 576px) */
+@media (max-width: 575px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .glass-card {
+    padding: 1rem !important;
+    border-radius: 15px;
+  }
+  
+  .dashboard-header h2 {
+    font-size: 1.25rem;
+  }
+  
+  .dashboard-header p {
+    font-size: 0.875rem;
+  }
+  
+  .card {
+    margin-bottom: 1rem;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .badge {
+    font-size: 0.65rem;
+    padding: 0.35rem 0.6rem;
+  }
+  
+  .btn-sm {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .btn-floating {
+    bottom: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    line-height: 45px;
+  }
+  
+  /* Ajustements des boutons d'action */
+  .d-flex.gap-2 {
+    gap: 0.5rem !important;
+  }
+}
+
+/* ======== MODE PAYSAGE MOBILE ======== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .btn-floating {
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .container {
+    margin-top: 1rem;
+  }
+}
+
+/* ======== AMÉLIORATION DES PERFORMANCES ======== */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.card,
+.btn,
+.badge {
+  will-change: transform;
+}
+
+/* ======== ACCESSIBILITÉ ======== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .pulse {
+    animation: none;
+  }
+}
+
+/* ======== DARK MODE SUPPORT (optionnel) ======== */
+@media (prefers-color-scheme: dark) {
+  .bg-gradient-dark {
+    background: radial-gradient(circle at top left, #000000, #1a1a2e, #16213e);
+  }
+}
+
+/* ======== POPUPS LIVE ======== */
+#live-notifications-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1100; /* au-dessus des cartes et boutons flottants */
+}
+
+.live-popup {
+    background: linear-gradient(90deg, #ff6b6b, #ff5252);
+    color: white;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    min-width: 260px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    animation: slide-in 0.5s ease-out, fade-out 0.5s ease-in 4.5s forwards;
+}
+
+@keyframes slide-in {
+    from { opacity: 0; transform: translateX(100%); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
