@@ -8,31 +8,54 @@ from django.contrib import messages
 def liste_comptes(request):
     """
     Dashboard : affiche les comptes TikTok suivis par l'utilisateur.
-    - Suppression des doublons par username.
-    - Ajoute un attribut 'en_live' pour savoir si le compte a un live en cours.
-    - Calcule le statut dynamique basé sur les lives détectés.
+    - Supprime les doublons par username.
+    - 'en_live' et 'statut_dynamique' sont calculés automatiquement par le modèle.
     """
     comptes = CompteTiktok.objects.filter(user=request.user)
-    
+
+    # Filtrer les comptes uniques par username
     comptes_uniques = []
     usernames_vus = set()
     for compte in comptes:
         if compte.username not in usernames_vus:
-            # Vérifie si le compte a un live en cours
-            compte.en_live = compte.lives.filter(statut='en_cours').exists()
-            
-            # Calcule le statut dynamique
-            if compte.en_live:
-                compte.statut_dynamique = 'En ligne'
-            elif compte.lives.exists():
-                compte.statut_dynamique = 'Hors ligne'
-            else:
-                compte.statut_dynamique = 'Jamais en live'
-            
             comptes_uniques.append(compte)
             usernames_vus.add(compte.username)
 
     return render(request, 'core/home.html', {'comptes': comptes_uniques})
+
+
+# @login_required
+# def liste_comptes(request):
+#     """
+#     Dashboard : affiche les comptes TikTok suivis par l'utilisateur.
+#     - Suppression des doublons par username.
+#     - Ajoute un attribut 'en_live' pour savoir si le compte a un live en cours.
+#     - Calcule le statut dynamique basé sur les lives détectés.
+#     """
+#     comptes = CompteTiktok.objects.filter(user=request.user)
+    
+#     #ici je filtre les comptes afin d'éviter des doublons dans l'affichage, car j'avais ajouté des comptes avant de mettre en place l'unicité par username au niveau du modèle avec unique_together
+#     comptes_uniques = []
+#     usernames_vus = set()
+#     for compte in comptes:
+#         if compte.username not in usernames_vus:
+#             # Vérifie si le compte a un live en cours
+#             # compte.en_live = compte.lives.filter(statut='en_cours').exists()
+#             #je remplace la ligne du dessus par celle ci-dessous qui est plus efficace car la propriété en_live est déjà définie dans le modèle avec un @property et est en lecture seule
+#             en_live = compte.en_live
+            
+#             # Calcule le statut dynamique
+#             if compte.en_live:
+#                 compte.statut_dynamique = 'En ligne'
+#             elif compte.lives.exists():
+#                 compte.statut_dynamique = 'Hors ligne'
+#             else:
+#                 compte.statut_dynamique = 'Jamais en live'
+            
+#             comptes_uniques.append(compte)
+#             usernames_vus.add(compte.username)
+
+#     return render(request, 'core/home.html', {'comptes': comptes_uniques})
 
 
 @login_required

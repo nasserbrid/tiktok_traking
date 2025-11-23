@@ -14,8 +14,20 @@
         {% endfor %}
     </ul>
 </div>
-
 <script>
+const ws = new WebSocket(`ws://${window.location.host}/ws/lives/`);
+
+ws.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+    if (data.type === "live_notification") {
+        alert(`${data.compte} est en live ! Titre: ${data.titre}`);
+        // ou afficher une badge/notification dans le dashboard
+    }
+};
+
+</script>
+
+{% comment %} <script>
 const socket = new WebSocket("ws://" + window.location.host + "/ws/lives/");
 
 socket.onmessage = function(e) {
@@ -30,5 +42,5 @@ socket.onmessage = function(e) {
         }
     }
 };
-</script>
+</script> {% endcomment %}
 {% endblock %}

@@ -16,14 +16,17 @@ class CompteTiktok(models.Model):
         return self.username
     
     @property
-    def statut(self):
+    def en_live(self):
+        return self.lives.filter(statut='en_cours').exists()
+
+    @property
+    def statut_dynamique(self):
         if self.lives.filter(statut='en_cours').exists():
             return 'En ligne'
         elif self.lives.exists():
             return 'Actif'
         else:
             return 'Hors ligne'
-
 
 class Live(models.Model):
     compte = models.ForeignKey(CompteTiktok, on_delete=models.CASCADE, related_name="lives")
