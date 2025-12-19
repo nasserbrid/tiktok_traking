@@ -219,53 +219,53 @@ LOGOUT_REDIRECT_URL = '/auth/login/'
 
 SITE_ID = 1  
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'APP': {
-            'client_id': config('GOOGLE_CLIENT_ID'),
-            'secret': config('GOOGLE_CLIENT_SECRET'),
-            'key': ''
-        },
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        },
-    }
-}
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'APP': {
+#             'client_id': config('GOOGLE_CLIENT_ID'),
+#             'secret': config('GOOGLE_CLIENT_SECRET'),
+#             'key': ''
+#         },
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'AUTH_PARAMS': {
+#             'access_type': 'online',
+#         },
+#     }
+# }
 
 # ============================================
 # Configuration Celery
 # ============================================
 
-CELERY_BROKER_URL = config('REDIS_URL')
-CELERY_RESULT_BACKEND = config('REDIS_URL')
+# CELERY_BROKER_URL = config('REDIS_URL')
+# CELERY_RESULT_BACKEND = config('REDIS_URL')
 
-# Sérialisation
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
+# # Sérialisation
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
 
-# Timezone
-CELERY_TIMEZONE = 'Europe/Paris'  # Change selon ta timezone
-CELERY_ENABLE_UTC = True
+# # Timezone
+# CELERY_TIMEZONE = 'Europe/Paris'  # Change selon ta timezone
+# CELERY_ENABLE_UTC = True
 
-# Configuration des tâches
-CELERY_TASK_TRACK_STARTED = True
-CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 minutes max par tâche
+# # Configuration des tâches
+# CELERY_TASK_TRACK_STARTED = True
+# CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 minutes max par tâche
 
-# Celery Beat - Tâches planifiées
-CELERY_BEAT_SCHEDULE = {
-    'check-tiktok-lives-every-2-minutes': {
-        'task': 'tracking.tasks.check_all_accounts',
-        'schedule': 120.0,  # Toutes les 2 minutes (en secondes)
-        'options': {
-            'expires': 60.0,  # Expire après 1 minute si pas exécutée
-        }
-    },
-}
+# # Celery Beat - Tâches planifiées
+# CELERY_BEAT_SCHEDULE = {
+#     'check-tiktok-lives-every-2-minutes': {
+#         'task': 'tracking.tasks.check_all_accounts',
+#         'schedule': 120.0,  # Toutes les 2 minutes (en secondes)
+#         'options': {
+#             'expires': 60.0,  # Expire après 1 minute si pas exécutée
+#         }
+#     },
+# }
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
