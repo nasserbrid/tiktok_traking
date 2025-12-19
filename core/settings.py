@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'core',
     'tracking',
     'notifications',
+    # 'django.contrib.sites', 
     # 'allauth',
     # 'allauth.account',
     # 'allauth.socialaccount',
@@ -204,10 +205,10 @@ DOMAIN = config("DOMAIN")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',  
-    # 'allauth.account.auth_backends.AuthenticationBackend',  
-)
+# AUTHENTICATION_BACKENDS = (
+#     'django.contrib.auth.backends.ModelBackend',  
+#     'allauth.account.auth_backends.AuthenticationBackend',  
+# )
 
 AUTH_USER_MODEL = 'authentication.User'
 
@@ -217,7 +218,7 @@ LOGIN_URL = '/auth/login/'
 
 LOGOUT_REDIRECT_URL = '/auth/login/' 
 
-SITE_ID = 1  
+# SITE_ID = 1  
 
 # SOCIALACCOUNT_PROVIDERS = {
 #     'google': {
