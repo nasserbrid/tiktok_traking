@@ -96,6 +96,16 @@ Tracking{% endblock %} {% block content %}
     +
   </a>
 </div>
+
+<!-- Popup -->
+<div id="my-popup" class="popup-overlay" style="display: none;">
+  <div class="popup-content glass-card">
+    <span id="popup-close" class="popup-close">&times;</span>
+    <h3>Notification</h3>
+    <p>Voici un message important pour toi !</p>
+  </div>
+</div>
+
 {% endblock %} {% block extra_js %}
 <script src="{% static 'js/home.js' %}"></script>
 <script>
