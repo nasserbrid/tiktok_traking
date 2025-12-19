@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load socialaccount %}
+{% comment %} {% load socialaccount %} {% endcomment %}
 
 {% block content %}
 <div class="glass-card p-5 text-center" style="width: 400px;">
@@ -32,11 +32,11 @@
   </form>
 
   <!-- Inscription avec Google -->
-  <div class="mt-3">
+  {% comment %} <div class="mt-3">
     <a href="{% provider_login_url 'google' %}" class="btn btn-danger w-100">
       <i class="fab fa-google me-2"></i> S'inscrire avec Google
     </a>
-  </div> 
+  </div>  {% endcomment %}
 
   <!-- Lien vers la connexion -->
   <p class="mt-3 text-muted">
