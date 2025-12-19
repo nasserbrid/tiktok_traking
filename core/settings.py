@@ -189,15 +189,15 @@ DOMAIN = config("DOMAIN")
 
 
 
-ACCOUNT_LOGIN_METHODS = {'email', 'username'}  
+# ACCOUNT_LOGIN_METHODS = {'email', 'username'}  
 
 
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
+# ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 
-ACCOUNT_EMAIL_VERIFICATION = config('ACCOUNT_EMAIL_VERIFICATION')
-ACCOUNT_LOGOUT_REDIRECT_URL = 'login'
-ACCOUNT_LOGOUT_ON_GET = config('ACCOUNT_LOGOUT_ON_GET', cast=bool)
-ACCOUNT_SESSION_REMEMBER = config('ACCOUNT_SESSION_REMEMBER', cast=bool)
+# ACCOUNT_EMAIL_VERIFICATION = config('ACCOUNT_EMAIL_VERIFICATION')
+# ACCOUNT_LOGOUT_REDIRECT_URL = 'login'
+# ACCOUNT_LOGOUT_ON_GET = config('ACCOUNT_LOGOUT_ON_GET', cast=bool)
+# ACCOUNT_SESSION_REMEMBER = config('ACCOUNT_SESSION_REMEMBER', cast=bool)
  
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
