@@ -267,12 +267,43 @@ LOGOUT_REDIRECT_URL = '/auth/login/'
 #         }
 #     },
 # }
+# ============================================
+# Configuration IA - Transcription et Analyse
+# ============================================
+
+# Groq API pour analyse de discours
+GROQ_API_KEY = config('API_KEY_GROQ')
+
+# Configuration Whisper (modèles: tiny, base, small, medium, large)
+WHISPER_MODEL = config('WHISPER_MODEL', default='small')
+WHISPER_LANGUAGE = config('WHISPER_LANGUAGE', default='fr')
+
+# Seuil d'alerte pour modération (0.0 à 1.0)
+RISK_THRESHOLD = config('RISK_THRESHOLD', default=0.7, cast=float)
+
+# Dossier logs pour IA
+LOGS_DIR = BASE_DIR / 'logs'
+os.makedirs(LOGS_DIR, exist_ok=True)
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'file_ai': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': LOGS_DIR / 'ai.log',
+            'formatter': 'verbose',
         },
     },
     'root': {
@@ -283,6 +314,16 @@ LOGGING = {
         'django': {
             'handlers': ['console'],
             'level': 'ERROR',
+            'propagate': False,
+        },
+        'tracking.ai': {
+            'handlers': ['file_ai', 'console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'tracking.services': {
+            'handlers': ['file_ai', 'console'],
+            'level': 'INFO',
             'propagate': False,
         },
     },

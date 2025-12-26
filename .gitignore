@@ -1,1 +1,70 @@
+# Environment variables
 .env
+
+# Documentation (optionnel - décommenter si vous ne voulez pas versionner la doc)
+# docs/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environment
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+
+# Database
+*.sqlite3
+db.sqlite3
+
+# Static files
+/staticfiles/
+/static/
+
+# Media files
+media/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Temporary files
+temp_transcript_repo/
+*.tmp
+*.bak
