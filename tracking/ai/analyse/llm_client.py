@@ -1,12 +1,12 @@
-from dotenv import load_dotenv
+
 import os
 from groq import Groq
 
 
-load_dotenv()
+from decouple import config
 
 client = Groq(
-    api_key=os.getenv("GROQ_API_KEY"),
+    api_key=config("API_KEY_GROQ"),
 )
 
 def call_llm(prompt: str) -> str:
