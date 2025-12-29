@@ -82,7 +82,7 @@ class Transcription(models.Model):
 
     class Meta:
         ordering = ['segment_number']
-        unique_together = ('live', 'segment_number')
+        unique_together = ('live', 'segment_number', 'timestamp')
 
     def __str__(self):
         return f"Segment {self.segment_number} - Live {self.live.id}"

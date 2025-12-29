@@ -27,7 +27,7 @@ def call_llm(prompt: str) -> str:
             }
         ],
         temperature=0.5,  # plus stable pour du JSON
-        max_completion_tokens=1024,
+        max_tokens=1024,
         top_p=1,
         stream=False
     )

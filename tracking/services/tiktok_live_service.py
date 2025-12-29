@@ -5,17 +5,24 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-async def is_live(username: str) -> bool:
+async def is_live(username: str) -> (bool, str):
     """
     Retourne True si l'utilisateur TikTok est en live.
     """
     username = username.lstrip("@")
     client = TikTokLiveClient(unique_id=username)
     try:
-        return await client.is_live()
+        # live = await client.is_live()
+        # # On récupère le room_id directement depuis l'attribut du client mis à jour
+        # room_id = str(client.room_id) if is_live else None
+        # return live, room_id
+        room_id = await client.web.fetch_room_id_from_html(username)
+
+        return True,room_id
+
     except Exception as e:
         logger.error(f"Erreur TikTok @{username}: {e}")
-        return False
+        return False,None
 
 # import asyncio
 # import logging

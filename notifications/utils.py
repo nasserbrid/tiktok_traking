@@ -70,27 +70,30 @@ def envoyer_notification_fin_live(live: Live):
     user = live.compte.user
     channel_layer = get_channel_layer()
 
-    if not channel_layer:
-        return
+    try:
+        if not channel_layer:
+            return
 
-    # Ici, je crée une notification de fin de live
-    notif = Notification.objects.create(
-        user=user,
-        live=live,
-        message=f"Le live de {live.compte.username} est terminé"
-    )
+        # Ici, je crée une notification de fin de live
+        notif = Notification.objects.create(
+            user=user,
+            live=live,
+            message=f"Le live de {live.compte.username} est terminé"
+        )
 
-    # Ici, j'envoie la notification de fin au groupe personnel
-    async_to_sync(channel_layer.group_send)(
-        f"user_{user.id}",
-        {
-            "type": "live_notification",
-            "compte": live.compte.username,
-            "titre": "Live terminé",
-            "user_id": user.id,
-            "ended": True  # Ici, j'indique que le live est terminé
-        }
-    )
+        # Ici, j'envoie la notification de fin au groupe personnel
+        async_to_sync(channel_layer.group_send)(
+            f"user_{user.id}",
+            {
+                "type": "live_notification",
+                "compte": live.compte.username,
+                "titre": "Live terminé",
+                "user_id": user.id,
+                "ended": True  # Ici, j'indique que le live est terminé
+            }
+        )
+    except Exception as e:
+        pass
 
 
 def marquer_notifications_lues(user, live=None):

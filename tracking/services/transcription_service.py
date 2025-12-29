@@ -35,7 +35,7 @@ class TranscriptionService:
     - Gestion des alertes et notifications
     """
 
-    def __init__(self, live: Live):
+    def __init__(self, live: Live, room_id:str=None):
         """
         Ici, j'initialise le service pour un live spécifique.
 
@@ -43,6 +43,7 @@ class TranscriptionService:
             live: Instance du modèle Live à transcrire
         """
         self.live = live
+        self.room_id = room_id
         self.transcriber: Optional[TikTokLiveTranscriber] = None
 
     def start(self) -> bool:
@@ -60,12 +61,20 @@ class TranscriptionService:
         """
         # Ici, je vérifie si une transcription est déjà en cours
         if self.live.id in active_transcribers:
-            logger.warning(f"Transcription déjà active pour live {self.live.id}")
-            return False
+
+            existing_transcriber = active_transcribers[self.live.id]
+            if existing_transcriber.is_running:
+                logger.warning(f"Transcription déjà active pour live {self.live.id}")
+                return True
 
         try:
+
+            print(f"\n get room id {self.live.compte.username}")
             # Ici, je récupère le room_id nécessaire pour se connecter au live
-            room_id = self._get_room_id()
+            #room_id = self._get_room_id()
+            room_id = self.room_id
+
+            print(f"\nroom id {room_id}\n")
             if not room_id:
                 logger.error(f"Impossible de récupérer room_id pour {self.live.compte.username}")
                 return False
@@ -286,7 +295,7 @@ class TranscriptionService:
         )
 
 
-def start_transcription_for_live(live: Live) -> bool:
+def start_transcription_for_live(live: Live, room_id: str=None) -> bool:
     """
     Ici, je fournis une fonction utilitaire pour démarrer facilement une transcription.
 
@@ -298,7 +307,9 @@ def start_transcription_for_live(live: Live) -> bool:
     Returns:
         bool: True si le démarrage a réussi, False sinon
     """
-    service = TranscriptionService(live)
+
+    print("\nstart_transcription_for_live: trnascrpirion_service.py\n")
+    service = TranscriptionService(live, room_id)
     return service.start()
 
 
