@@ -2,6 +2,9 @@ from django.db import models
 from django.conf import settings
 from authentication.models import User
 
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+
 
 class CompteTiktok(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comptes_tiktok")
@@ -28,6 +31,16 @@ class CompteTiktok(models.Model):
             return 'Actif'
         else:
             return 'Hors ligne'
+
+    def get_derniere_analyse(self):
+        """Récupère la toute dernière analyse pour ce compte s'il est en live."""
+        live_actuel = self.lives.filter(statut='en_cours').first()
+        if not live_actuel:
+            return None
+
+        return AnalyseDiscours.objects.filter(
+            transcription__live=live_actuel
+        ).select_related('transcription').order_by('-transcription__timestamp').first()
 
 class Live(models.Model):
     compte = models.ForeignKey(CompteTiktok, on_delete=models.CASCADE, related_name="lives")
@@ -60,6 +73,27 @@ class Live(models.Model):
         if self.statut == 'en_cours' and (is_new_live or previous_statut != 'en_cours'):
             from notifications.utils import envoyer_notification_live
             envoyer_notification_live(self)
+
+@receiver(pre_delete, sender=Live)
+def stop_transcription_on_live_delete(sender, instance, **kwargs):
+    """Arrête l'IA avant que le Live ne soit supprimé de la BDD."""
+    from tracking.services.transcription_service import stop_transcription_for_live
+    try:
+        stop_transcription_for_live(instance)
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).error(f"Erreur arrêt IA lors suppression live: {e}")
+
+@receiver(pre_delete, sender=CompteTiktok)
+def stop_all_transcriptions_on_compte_delete(sender, instance, **kwargs):
+    """Arrête toutes les IA liées aux lives de ce compte avant suppression."""
+    from tracking.services.transcription_service import stop_transcription_for_live
+    for live in instance.lives.filter(statut='en_cours'):
+        try:
+            stop_transcription_for_live(live)
+        except Exception:
+            pass
+
 
 
 class Transcription(models.Model):

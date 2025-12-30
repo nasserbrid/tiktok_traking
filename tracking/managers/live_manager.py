@@ -18,6 +18,7 @@ def _execute_live_processing_thread(live,room_id, username, user_id):
     from tracking.services.transcription_service import start_transcription_for_live
     from django.db import connections
 
+    success = False
     try:
         # 1. Démarrage de la transcription IA
 
@@ -47,6 +48,11 @@ def _execute_live_processing_thread(live,room_id, username, user_id):
     finally:
         # Indispensable : Fermer les connexions orphelines dans ce thread
         connections.close_all()
+
+        if not success:
+            from tracking.services.transcription_service import active_transcribers
+            if live.id in active_transcribers:
+                del active_transcribers[live.id]
 
 
 def update_live_status(compte, live_detected: bool, room_id: str = None):

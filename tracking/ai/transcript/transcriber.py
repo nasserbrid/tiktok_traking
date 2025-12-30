@@ -19,6 +19,8 @@ FFMPEG_TIMEOUT = 20
 API_RETRY_DELAY = 5
 API_MAX_RETRIES = 3
 
+_WHISPER_MODELS_CACHE = {}
+
 FILE_A = "live_segment_A.mp3"
 FILE_B = "live_segment_B.mp3"
 
@@ -409,8 +411,14 @@ class TikTokLiveTranscriber:
             return False
         
         try:
+
+            global _WHISPER_MODELS_CACHE
+            if self.model_name not in _WHISPER_MODELS_CACHE:
+                logger.info(f"Chargement initial du modèle Whisper '{self.model_name}'...")
+                _WHISPER_MODELS_CACHE[self.model_name] = whisper.load_model(self.model_name)
+
             logger.info(f"Chargement du modèle Whisper '{self.model_name}'...")
-            self.model = whisper.load_model(self.model_name)
+            self.model = _WHISPER_MODELS_CACHE[self.model_name]
             logger.info("Modèle chargé.")
         except Exception as e:
             logger.error(f"Erreur lors du chargement de Whisper: {e}")
@@ -516,41 +524,41 @@ def live_transcriber(
 
 
 # --- Exemple d'utilisation ---
-if __name__ == "__main__":
-    import sys
-    
-    def handle_transcription(text: str, segment: int):
-        print(f"\n[{segment}] {text}\n")
-    
-    def handle_error(error: str):
-        print(f"\nErreur: {error}\n")
-    
-    def handle_complete(stats: Dict):
-        print(f"\nTerminé avec stats: {stats}\n")
-    
-    if len(sys.argv) < 2:
-        print("Usage: python script.py <room_id> [model]")
-        print("Modèles: tiny, base, small, medium, large")
-        sys.exit(1)
-    
-    room_id = sys.argv[1]
-    model = sys.argv[2] if len(sys.argv) > 2 else MODEL_NAME
-    
-    try:
-        transcriber = live_transcriber(
-            room_id=room_id,
-            model=model,
-            on_transcription=handle_transcription,
-            on_error=handle_error,
-            on_complete=handle_complete
-        )
-        
-        # Attendre indéfiniment ou jusqu'à Ctrl+C
-        transcriber.wait_until_complete()
-        
-    except RuntimeError as e:
-        print(f"{e}")
-    except KeyboardInterrupt:
-        print("\nArrêt...")
-        transcriber.stop()
-        transcriber.wait_until_complete(timeout=10)
+# if __name__ == "__main__":
+#     import sys
+#
+#     def handle_transcription(text: str, segment: int):
+#         print(f"\n[{segment}] {text}\n")
+#
+#     def handle_error(error: str):
+#         print(f"\nErreur: {error}\n")
+#
+#     def handle_complete(stats: Dict):
+#         print(f"\nTerminé avec stats: {stats}\n")
+#
+#     if len(sys.argv) < 2:
+#         print("Usage: python script.py <room_id> [model]")
+#         print("Modèles: tiny, base, small, medium, large")
+#         sys.exit(1)
+#
+#     room_id = sys.argv[1]
+#     model = sys.argv[2] if len(sys.argv) > 2 else MODEL_NAME
+#
+#     try:
+#         transcriber = live_transcriber(
+#             room_id=room_id,
+#             model=model,
+#             on_transcription=handle_transcription,
+#             on_error=handle_error,
+#             on_complete=handle_complete
+#         )
+#
+#         # Attendre indéfiniment ou jusqu'à Ctrl+C
+#         transcriber.wait_until_complete()
+#
+#     except RuntimeError as e:
+#         print(f"{e}")
+#     except KeyboardInterrupt:
+#         print("\nArrêt...")
+#         transcriber.stop()
+#         transcriber.wait_until_complete(timeout=10)

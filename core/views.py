@@ -10,6 +10,8 @@ def home_page(request):
     comptes = CompteTiktok.objects.filter(user=request.user)
     for compte in comptes:
         live_detected, room_id = asyncio.run(is_live(compte.username))
-        print(f"room_id Home: {room_id}")
         update_live_status(compte, live_detected, room_id)
+
+        compte.derniere_analyse = compte.get_derniere_analyse()
+
     return render(request, "core/home.html", {'comptes': comptes})

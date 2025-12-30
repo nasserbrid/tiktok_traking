@@ -55,6 +55,30 @@ Tracking{% endblock %} {% block content %}
           </span>
           {% endif %}
 
+          <!-- Affichage de l'Analyse IA -->
+          {% if compte.get_derniere_analyse %}
+          <div class="mt-3 p-2 rounded border {% if compte.get_derniere_analyse.discours_haineux %}border-danger bg-danger bg-opacity-10{% else %}border-secondary bg-light bg-opacity-10{% endif %}" style="font-size: 0.85rem;">
+
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="fw-bold">
+                {% if compte.get_derniere_analyse.discours_haineux %}
+                  <i class="fas fa-exclamation-triangle text-danger"></i> Alerte Haine
+                {% else %}
+                  <i class="fas fa-robot text-info"></i> Analyse IA
+                {% endif %}
+              </span>
+              <span class="badge {% if compte.get_derniere_analyse.risque_score >= 0.7 %}bg-danger{% elif compte.derniere_analyse.risque_score >= 0.4 %}bg-warning text-dark{% else %}bg-success{% endif %}">
+                Score: {{ compte.get_derniere_analyse.risque_score|floatformat:2 }}
+              </span>
+            </div>
+
+            <div class="text-white-50">
+              <strong>Catégorie:</strong> {{ compte.get_derniere_analyse.get_categorie_display }}<br>
+              <small><em>"{{ compte.get_derniere_analyse.justification|truncatechars:70 }}"</em></small>
+            </div>
+          </div>
+          {% endif %}
+
           <!-- Boutons d'action -->
           <div class="d-flex gap-2 mt-3">
             <a
